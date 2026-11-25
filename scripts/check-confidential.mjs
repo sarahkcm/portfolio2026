@@ -5,14 +5,20 @@ import { join, extname } from "path";
 
 const roots = ["src", "public", ...(existsSync("out") ? ["out"] : [])];
 const TEXT = new Set([".ts", ".tsx", ".css", ".md", ".svg", ".html", ".txt", ".json", ".js"]);
+// Public, generic rules only. Specific private terms (phone numbers, people, internal
+// system names, record IDs) live in scripts/confidential.local.json, which is gitignored
+// and never published. Format: [{ "pattern": "regex", "why": "label" }].
 const rules = [
-  [/bonat\.io|zimam|store-stg|admin-stg|app-stg|core-api|dashboard-stg/i, "internal domain or system name"],
-  [/clickup\.com\/t\/|\b869[a-z0-9]{6}\b|\b1amvuf[a-z0-9]+/i, "ticket link or ID"],
+  [/clickup\.com\/t\//i, "ticket link"],
   [/posthog\.[a-z]+\.io|supabase\.co|xox[bap]-|sk-ant-|ghp_[A-Za-z0-9]/, "service URL or secret"],
-  [/\+?216[\s-]?\d{2}[\s-]?\d{3}[\s-]?\d{3}|54\s?291\s?648/, "phone number"],
-  [/\b(Hichem|Yassine|Ahmed|Bilel|mosbah)\b/i, "colleague name"],
-  [/\bmerchant\s?(id\s?)?\d{3,}|\b1098\b|\b117280\b/i, "real record ID"],
+  [/\+\d{3}[\s-]?\d{2}[\s-]?\d{3}[\s-]?\d{3}/, "phone number"],
 ];
+const LOCAL = new URL("./confidential.local.json", import.meta.url);
+if (existsSync(LOCAL)) {
+  for (const { pattern, why } of JSON.parse(readFileSync(LOCAL, "utf8"))) rules.push([new RegExp(pattern, "i"), why]);
+} else {
+  console.log("(no local private-term list found: running generic rules only)");
+}
 const walk = (d) => readdirSync(d).flatMap((f) => { const p = join(d, f); return statSync(p).isDirectory() ? walk(p) : [p]; });
 let bad = 0;
 for (const f of roots.flatMap(walk)) {
