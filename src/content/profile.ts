@@ -48,6 +48,7 @@ export const checks = [
       "API testing with Postman",
       "Read-only SQL checks in PostgreSQL and MySQL",
       "Arabic localization, RTL and accessibility",
+      "End-to-end tests with Cypress and Playwright",
     ],
   },
   {
@@ -90,7 +91,7 @@ export const experience: Experience[] = [
           "API testing with Postman (requests, collections and environments).",
           "Investigating production issues and verifying fixes.",
           "Read-only database checks on PostgreSQL and MySQL.",
-          "Validating analytics events in PostHog.",
+          "Validating analytics events in PostHog and CleverTap, including a production event audit.",
           "Testing Arabic localization, RTL layouts and accessibility.",
           "Managing and verifying defects in Jira and ClickUp.",
         ],
@@ -100,7 +101,7 @@ export const experience: Experience[] = [
         items: [
           "Promote a shared testing approach: developer-owned unit tests and QA-owned end-to-end validation.",
           "Encourage developers to write and maintain unit tests.",
-          "Build end-to-end automated tests on my own initiative.",
+          "Build end-to-end tests for complete user journeys on my own initiative, first with Cypress and later Playwright, run locally.",
         ],
       },
     ],
@@ -134,7 +135,8 @@ export const skills: SkillGroup[] = [
       "Accessibility testing",
     ],
   },
-  { title: "API and Data", scope: "professional", items: ["Postman", "PostgreSQL", "MySQL (read-only validation)", "PostHog"] },
+  { title: "API and Data", scope: "professional", items: ["Postman", "PostgreSQL", "MySQL (read-only validation)", "PostHog", "CleverTap"] },
+  { title: "End-to-end Tests", scope: "professional", items: ["Cypress", "Playwright", "Run locally, not in CI"] },
   {
     title: "Automation and Engineering",
     scope: "independent",
