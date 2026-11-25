@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  /* Cool paper, indigo-navy ink. Amber is reserved for independent work, green for passed checks. */
+  --color-ink: #1b1d3a;
+  --color-ink-2: #474b68;
+  --color-ink-3: #656985;
+  --color-line: #dde0ec;
+  --color-paper: #f7f8fc;
+  --color-surface: #ffffff;
+  --color-wash: #eef0f7;
+  --color-accent: #4338ca;
+  --color-accent-soft: #ecebfd;
+  --color-pass: #0f7b4a;
+  --color-pass-soft: #e3f3ea;
+  --color-indep: #94460a;
+  --color-indep-soft: #fdf1e2;
+  --color-night: #1b1d3a;
+  --color-night-2: #c6c8e4;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body { background: var(--color-paper); color: var(--color-ink); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+::selection { background: var(--color-accent-soft); color: var(--color-ink); }
+
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 4px; }
+
+/* The one orchestrated moment: the hero check run. Final state is the element's normal style,
+   so with reduced motion (animations off) every check simply shows as passed. */
+@keyframes check-line { from { opacity: 0.35; } to { opacity: 1; } }
+@keyframes check-mark { 0% { opacity: 0; transform: scale(0.4); } 70% { transform: scale(1.12); } 100% { opacity: 1; transform: none; } }
+@keyframes check-spin { from { opacity: 1; } to { opacity: 0; } }
+@keyframes check-sum { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+.check-line { animation: check-line 0.25s ease-out both; animation-delay: calc(350ms + var(--i) * 230ms); }
+.check-mark { animation: check-mark 0.3s ease-out both; animation-delay: calc(350ms + var(--i) * 230ms); }
+.check-sum { animation: check-sum 0.35s ease-out both; animation-delay: calc(450ms + var(--n) * 230ms); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
