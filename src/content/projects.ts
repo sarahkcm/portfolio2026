@@ -94,7 +94,7 @@ export const projects: Project[] = [
     title: "QA Workflow Agent",
     summary: "An LLM agent that supports QA workflows: it interprets tickets, works in browser and mobile environments, and records test results.",
     status: "Personal tool, not a company product",
-    stack: ["Claude Code", "Python", "Chrome automation", "Real-device iOS", "Chat interface"],
+    stack: ["Claude Code", "Chrome automation", "Real-device iOS", "Chat interface"],
     sections: [
       {
         heading: "Purpose",
